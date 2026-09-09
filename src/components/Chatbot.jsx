@@ -39,7 +39,7 @@ function Chatbot() {
         {
           headers: {
             "Content-Type": "application/json",
-            "x-goog-api-key": "AQ.Ab8RN6LWQxeYhGDao10VFOG126Ou_KoqfYtnn8yhrIbkB-HY6Q"
+            "x-goog-api-key": "AQ.Ab8RN6Jmirsf9T0CIZGtNB0r8OO2Acoya1aM_6orrJgXzvA8iQ"
           }
         }
       );
