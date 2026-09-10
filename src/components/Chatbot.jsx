@@ -4,7 +4,7 @@ import { UserProvider } from "../context/UserContext";
 import "./Chatbot.css";
 
 const ai = new GoogleGenAI({
-  apiKey: "AQ.Ab8RN6IAXkvg1JcperilL18ogaxEiwRvkTca0S9whlv6ufxM9A",
+  apiKey: "AQ.Ab8RN6KAatQ4pXEYM6o0lNc6kJh6z1R45lPKuvn2Gd681iM1ew",
 });
 
 function Chatbot() {
