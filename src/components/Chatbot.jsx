@@ -4,8 +4,9 @@ import { UserProvider } from "../context/UserContext";
 import "./Chatbot.css";
 
 const ai = new GoogleGenAI({
-  apiKey: "AQ.Ab8RN6Jtf8GafqKH0nY7hEicPEf8PmlVPz27ixtz3rjvtD16Kg",
+  apiKey: import.meta.env.VITE_GEMINI_API_KEY,
 });
+
 
 function Chatbot() {
   const { userInfo, setUserInfo } = useContext(UserProvider);
