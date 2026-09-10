@@ -1,6 +1,11 @@
 import { useContext, useState } from "react";
-import axios from "axios";
+import { GoogleGenAI } from "@google/genai";
 import { UserProvider } from "../context/UserContext";
+import "./Chatbot.css";
+
+const ai = new GoogleGenAI({
+  apiKey: "AQ.Ab8RN6IAXkvg1JcperilL18ogaxEiwRvkTca0S9whlv6ufxM9A",
+});
 
 function Chatbot() {
   const { userInfo, setUserInfo } = useContext(UserProvider);
@@ -9,12 +14,14 @@ function Chatbot() {
   const [response, setResponse] = useState("");
   const [loading, setLoading] = useState(false);
 
+  const handleChange = (e) => {
+    setQuery(e.target.value);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const question = query.trim();
-
-    if (!question) {
+    if (!query.trim()) {
       return;
     }
 
@@ -22,51 +29,71 @@ function Chatbot() {
     setResponse("");
 
     try {
-      const result = await axios.post(
-        "https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent",
-        {
-          contents: [
-            {
-              role: "user",
-              parts: [
-                {
-                  text: question
-                }
-              ]
-            }
-          ]
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            "x-goog-api-key": "AQ.Ab8RN6Jmirsf9T0CIZGtNB0r8OO2Acoya1aM_6orrJgXzvA8iQ"
-          }
-        }
-      );
+      const interaction = await ai.interactions.create({
+        model: "gemini-3.5-flash",
 
-      const answer =
-        result.data?.candidates?.[0]?.content?.parts
-          ?.map((part) => part.text || "")
-          .join("") ||
-        "No response received.";
+        input: query,
 
-      setResponse(answer);
+        system_instruction: `You are a Starbucks AI Assistant.
 
-    } catch (error) {
-      console.error(
-        "Gemini API Error:",
-        error.response?.data || error
-      );
+You help customers with Starbucks-related questions.
 
-      const errorMessage =
-        error.response?.data?.error?.message ||
-        "Gemini API se response nahi aa saka.";
+You can only answer questions about these topics:
 
-      setResponse(`Error: ${errorMessage}`);
+1. Menu
+2. Coffee
+3. Prices
+4. Orders
+5. Store locations
 
-    } finally {
-      setLoading(false);
+Keep your answers short, friendly and simple.
+
+Starbucks offers:
+Coffee
+Frappuccino
+Tea
+Refreshers
+Sandwiches
+Bakery items
+
+If the user asks about coffee:
+Recommend a suitable Starbucks drink.
+
+If the user asks about the menu:
+Give a short description of Starbucks menu items.
+
+If the user asks about prices:
+Give general information about Starbucks prices.
+
+If the user asks about orders:
+Give general information about placing or checking an order.
+
+If the user asks about store locations:
+Give general information about Starbucks stores.
+
+If the user asks something unrelated to Starbucks, reply:
+
+"Sorry, I can only help with Starbucks menu, coffee, prices, orders and store locations."
+
+Keep every response short and concise.
+
+Always be polite and helpful.
+
+IMPORTANT RESPONSE FORMAT:
+Do not use asterisks (*).
+Do not use double asterisks (**).
+Do not use hashtags (#).
+Do not use special symbols for formatting.`,
+      });
+
+      setResponse(interaction.output_text);
+    } catch (err) {
+      console.log(err);
+
+      setResponse(err.message || "Something went wrong");
     }
+
+    setLoading(false);
   };
 
   const logout = () => {
@@ -74,14 +101,12 @@ function Chatbot() {
   };
 
   return (
-    <main className="page chatbot-page">
-
+    <main className="chatbot-page">
       <section className="card chatbot-card">
 
         <div className="topbar">
-
-          <div>
-            <h1>AI Chatbot</h1>
+          <div className="chatbot-heading">
+            <h1>Starbucks AI</h1>
 
             <p className="muted">
               Welcome, {userInfo?.name}
@@ -95,35 +120,36 @@ function Chatbot() {
           >
             Logout
           </button>
-
         </div>
 
         <div className="response-box">
-
           {loading ? (
-            <p>AI is thinking...</p>
+            <p>Starbucks AI is thinking...</p>
           ) : response ? (
             <p>{response}</p>
           ) : (
             <p className="muted">
-              Ask an AI-related question below.
+              Ask about menu, coffee, prices, orders or locations.
             </p>
           )}
-
         </div>
 
-        <form onSubmit={handleSubmit}>
-
+        <form
+          className="chatbot-form"
+          onSubmit={handleSubmit}
+        >
           <label htmlFor="query">
             Query
           </label>
 
           <input
-            id="query"
             type="text"
-            placeholder="Ask an AI-related question..."
+            name="query"
+            id="query"
+            placeholder="Ask about coffee, menu, prices..."
             value={query}
-            onChange={(e) => setQuery(e.target.value)}
+            onChange={handleChange}
+            disabled={loading}
           />
 
           <button
@@ -132,11 +158,9 @@ function Chatbot() {
           >
             {loading ? "Sending..." : "Send"}
           </button>
-
         </form>
 
       </section>
-
     </main>
   );
 }

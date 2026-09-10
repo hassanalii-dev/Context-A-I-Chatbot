@@ -1,0 +1,645 @@
+/* =========================================
+   HEADER
+========================================= */
+
+.site-header {
+  width: 100%;
+
+  position: sticky;
+  top: 0;
+
+  z-index: 1000;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(30, 41, 59, 0.98),
+      rgba(15, 23, 42, 0.98)
+    );
+
+  border-bottom:
+    1px solid rgba(99, 102, 241, 0.18);
+
+  box-shadow:
+    0 8px 30px rgba(0, 0, 0, 0.18);
+
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+
+/* =========================================
+   HEADER CONTAINER
+========================================= */
+
+.header-container {
+  
+  padding: 10px;
+
+  display: flex;
+}
+
+
+/* =========================================
+   HEADER BRAND
+========================================= */
+
+.header-brand {
+  display: flex;
+
+  align-items: center;
+
+  gap: 12px;
+}
+
+
+/* =========================================
+   HEADER LOGO
+========================================= */
+
+.header-logo {
+  width: 40px;
+  height: 40px;
+
+  
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 13px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #6366f1,
+      #818cf8,
+      #a78bfa
+    );
+
+  font-size: 20px;
+
+  box-shadow:
+    0 6px 22px rgba(99, 102, 241, 0.28);
+
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+
+/* =========================================
+   LOGO HOVER
+========================================= */
+
+
+
+
+/* =========================================
+   HEADER BRAND TEXT
+========================================= */
+
+.header-brand h2 {
+  margin: 0;
+
+  color: #f8fafc;
+
+  font-size: 17px;
+
+  font-weight: 700;
+
+  line-height: 1.2;
+
+  letter-spacing: -0.3px;
+
+}
+
+
+/* =========================================
+   SMART COFFEE ASSISTANT
+========================================= */
+
+.header-brand span {
+  display: block;
+
+  margin-top: 3px;
+
+  color: #64748b;
+
+  font-size: 10px;
+
+  font-weight: 400;
+
+  line-height: 1.2;
+
+  letter-spacing: 0.3px;
+
+}
+
+
+/* =========================================
+   HEADER STATUS
+========================================= */
+
+
+
+
+/* =========================================
+   STATUS HOVER
+========================================= */
+
+.header-status:hover {
+  background:
+    rgba(99, 102, 241, 0.12);
+
+  border-color:
+    rgba(129, 140, 248, 0.32);
+}
+
+
+/* =========================================
+   STATUS DOT
+========================================= */
+
+
+
+/* =========================================
+   STATUS ANIMATION
+========================================= */
+
+@keyframes statusPulse {
+
+  0%,
+  100% {
+    opacity: 0.55;
+
+    transform: scale(1);
+
+    box-shadow:
+      0 0 5px #818cf8,
+      0 0 10px rgba(129, 140, 248, 0.4);
+  }
+
+  50% {
+    opacity: 1;
+
+    transform: scale(1.2);
+
+    box-shadow:
+      0 0 8px #818cf8,
+      0 0 16px rgba(129, 140, 248, 0.7);
+  }
+}
+
+
+/* =========================================
+   LARGE DESKTOP
+   1200px - 1599px
+========================================= */
+
+@media (min-width: 1200px) and (max-width: 1599px) {
+
+  .header-container {
+    max-width: 1250px;
+
+    padding-left: 40px;
+    padding-right: 40px;
+
+    gap: 20px;
+  }
+
+  .header-brand h2 {
+    font-size: 17px;
+  }
+
+  .header-brand span {
+    font-size: 10px;
+  }
+}
+
+
+/* =========================================
+   BIG SCREEN
+   1600px+
+========================================= */
+
+@media (min-width: 1600px) {
+
+  .header-container {
+    max-width: 1400px;
+
+    min-height: 78px;
+
+    padding-left: 45px;
+    padding-right: 45px;
+
+    gap: 24px;
+  }
+
+  .header-logo {
+    width: 46px;
+    height: 46px;
+
+    border-radius: 14px;
+
+    font-size: 21px;
+  }
+
+  .header-brand {
+    gap: 13px;
+  }
+
+  .header-brand h2 {
+    font-size: 18px;
+  }
+
+  .header-brand span {
+    font-size: 11px;
+  }
+
+  .header-status {
+    padding: 9px 14px;
+
+    font-size: 12px;
+  }
+
+  .status-dot {
+    width: 8px;
+    height: 8px;
+  }
+}
+
+
+/* =========================================
+   TABLET
+   769px - 1024px
+========================================= */
+
+@media (min-width: 769px) and (max-width: 1024px) {
+
+  .header-container {
+    min-height: 68px;
+
+    padding-left: 24px;
+    padding-right: 24px;
+
+    gap: 16px;
+  }
+
+  .header-logo {
+    width: 39px;
+    height: 39px;
+
+    font-size: 19px;
+  }
+
+  .header-brand {
+    gap: 10px;
+  }
+
+  .header-brand h2 {
+    font-size: 16px;
+  }
+
+  .header-brand span {
+    display: block;
+
+    font-size: 9px;
+  }
+
+  .header-status {
+    padding: 7px 11px;
+
+    font-size: 10px;
+  }
+}
+
+
+/* =========================================
+   SMALL TABLET
+   601px - 768px
+========================================= */
+
+@media (min-width: 601px) and (max-width: 768px) {
+
+  .header-container {
+    min-height: 66px;
+
+    padding-left: 20px;
+    padding-right: 20px;
+
+    gap: 14px;
+  }
+
+  .header-brand {
+    gap: 9px;
+  }
+
+  .header-logo {
+    width: 38px;
+    height: 38px;
+
+    border-radius: 11px;
+
+    font-size: 18px;
+  }
+
+  .header-brand h2 {
+    font-size: 15px;
+  }
+
+  .header-brand span {
+    display: block;
+
+    font-size: 9px;
+  }
+
+  .header-status {
+    padding: 7px 10px;
+
+    font-size: 9px;
+
+    gap: 7px;
+  }
+
+  .status-dot {
+    width: 6px;
+    height: 6px;
+  }
+}
+
+
+/* =========================================
+   MOBILE
+   481px - 600px
+========================================= */
+
+@media (min-width: 481px) and (max-width: 600px) {
+
+  .header-container {
+    min-height: 64px;
+
+    padding-left: 14px;
+    padding-right: 14px;
+
+    gap: 10px;
+  }
+
+  .header-brand {
+    gap: 9px;
+
+    min-width: 0;
+  }
+
+  .header-logo {
+    width: 38px;
+    height: 38px;
+
+    border-radius: 11px;
+
+    font-size: 18px;
+  }
+
+  .header-brand h2 {
+    font-size: 15px;
+  }
+
+  .header-brand span {
+    display: block;
+
+    font-size: 9px;
+
+    margin-top: 2px;
+  }
+
+  .header-status {
+    padding: 7px 9px;
+
+    font-size: 8px;
+
+    gap: 6px;
+  }
+
+  .status-dot {
+    width: 6px;
+    height: 6px;
+  }
+}
+
+
+/* =========================================
+   SMALL MOBILE
+   361px - 480px
+========================================= */
+
+@media (min-width: 361px) and (max-width: 480px) {
+
+  .header-container {
+    min-height: 62px;
+
+    padding-left: 12px;
+    padding-right: 12px;
+
+    gap: 8px;
+
+    overflow: hidden;
+  }
+
+  .header-brand {
+    gap: 8px;
+
+    min-width: 0;
+
+    flex: 1;
+  }
+
+  .header-logo {
+    width: 36px;
+    height: 36px;
+
+    border-radius: 10px;
+
+    font-size: 17px;
+  }
+
+  .header-brand h2 {
+    font-size: 14px;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+
+    white-space: nowrap;
+  }
+
+  .header-brand span {
+    display: block;
+
+    font-size: 8px;
+
+    margin-top: 2px;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+
+    white-space: nowrap;
+  }
+
+  .header-status {
+    padding: 6px 8px;
+
+    font-size: 8px;
+
+    gap: 5px;
+
+    flex-shrink: 0;
+  }
+
+  .status-dot {
+    width: 6px;
+    height: 6px;
+  }
+}
+
+
+/* =========================================
+   EXTRA SMALL MOBILE
+   320px - 360px
+========================================= */
+
+@media (max-width: 360px) {
+
+  .header-container {
+    min-height: 58px;
+
+    padding-left: 9px;
+    padding-right: 9px;
+
+    gap: 7px;
+
+    overflow: hidden;
+  }
+
+  .header-brand {
+    gap: 7px;
+
+    min-width: 0;
+
+    flex: 1;
+  }
+
+  .header-logo {
+    width: 34px;
+    height: 34px;
+
+    border-radius: 9px;
+
+    font-size: 16px;
+  }
+
+  .header-brand h2 {
+    font-size: 12px;
+
+    line-height: 1.15;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+
+    white-space: nowrap;
+  }
+
+  .header-brand span {
+    display: block;
+
+    font-size: 7px;
+
+    line-height: 1.15;
+
+    margin-top: 2px;
+
+    letter-spacing: 0;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+
+    white-space: nowrap;
+  }
+
+  .header-status {
+    display: none;
+  }
+}
+
+
+/* =========================================
+   VERY SMALL DEVICES
+   BELOW 320px
+========================================= */
+
+@media (max-width: 319px) {
+
+  .header-container {
+    min-height: 56px;
+
+    padding-left: 7px;
+    padding-right: 7px;
+
+    gap: 6px;
+  }
+
+  .header-brand {
+    gap: 6px;
+  }
+
+  .header-logo {
+    width: 32px;
+    height: 32px;
+
+    border-radius: 8px;
+
+    font-size: 15px;
+  }
+
+  .header-brand h2 {
+    font-size: 11px;
+  }
+
+  .header-brand span {
+    display: block;
+
+    font-size: 6.5px;
+
+    margin-top: 1px;
+  }
+
+  .header-status {
+    display: none;
+  }
+}
+
+
+/* =========================================
+   TOUCH DEVICES
+========================================= */
+
+@media (hover: none) and (pointer: coarse) {
+
+  .header-logo:hover {
+    transform: none;
+
+    box-shadow:
+      0 6px 22px rgba(99, 102, 241, 0.28);
+  }
+
+  .header-status:hover {
+    background:
+      rgba(99, 102, 241, 0.07);
+
+    border-color:
+      rgba(129, 140, 248, 0.20);
+  }
+}
