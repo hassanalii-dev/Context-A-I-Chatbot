@@ -10,7 +10,7 @@
   padding: 12px 20px;
   display: flex;
   align-items: center;
-  justify-content: space-between; /* Agar sath mein nav/links hon toh woh alag adjust ho sakein */
+  justify-content: space-between; 
 }
 
 .header-brand {
@@ -28,7 +28,7 @@
   border-radius: 10px;
   background: #6366f1;
   font-size: 20px;
-  flex-shrink: 0; /* Logo chota screen par shrink hone se bachay ga */
+  flex-shrink: 0; 
 }
 
 .header-brand h2 {
@@ -44,9 +44,7 @@
   font-size: 12px;
 }
 
-/* --- Responsive Media Queries --- */
 
-/* Tablets ke liye */
 @media (max-width: 768px) {
   .header-container {
     padding: 10px 16px;

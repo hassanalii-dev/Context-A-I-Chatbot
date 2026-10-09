@@ -5,7 +5,7 @@
 }
 
 .footer-container {
-  padding: 20px 20px; /* Thori si vertical padding barha di hai taake balance lage */
+  padding: 20px 20px; 
   text-align: center;
 }
 
@@ -15,20 +15,18 @@
   line-height: 1.5;
 }
 
-/* Tablets aur small screens ke liye */
 @media (max-width: 768px) {
   .footer-container {
     padding: 16px 15px;
   }
 }
 
-/* Mobile screens ke liye */
 @media (max-width: 480px) {
   .footer-container {
     padding: 14px 10px;
   }
 
   .footer-container small {
-    font-size: 11px; /* Font size ko 10px se thora behtar rakha hai taake parhne mein asani ho */
+    font-size: 11px; 
   }
 }

@@ -54,7 +54,7 @@
   font-weight: 600;
   cursor: pointer;
   transition: 0.2s;
-  white-space: nowrap; /* Button text ko break hone se rokne ke liye */
+  white-space: nowrap; 
 }
 
 .logout:hover {
@@ -142,9 +142,7 @@
   cursor: not-allowed;
 }
 
-/* --- Responsive Media Queries --- */
 
-/* Tablets aur chote laptops ke liye (max-width: 768px) */
 @media (max-width: 768px) {
   .chatbot-page {
     padding: 30px 15px;

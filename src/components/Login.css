@@ -191,7 +191,6 @@
   min-width: 0;
 }
 
-/* Large desktop screens */
 @media (min-width: 1200px) {
   .login-page {
     padding: 30px;
@@ -202,7 +201,6 @@
   }
 }
 
-/* Tablets and small laptops */
 @media (min-width: 601px) and (max-width: 1024px) {
   .login-page {
     padding: 30px 20px;
@@ -217,7 +215,6 @@
   }
 }
 
-/* Mobile phones */
 @media (max-width: 600px) {
   .login-page {
     min-height: 100vh;
