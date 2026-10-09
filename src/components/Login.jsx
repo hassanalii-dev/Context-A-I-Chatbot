@@ -36,14 +36,12 @@ function LoginForm() {
         <div className="welcome-section">
 
           <div className="brand-line">
-            <span className="brand-dot"></span>
             STARBUCKS CHATBOT
           </div>
 
           <h2>
             Welcome to <span>Starbucks</span>
           </h2>
-
           <p>
             Your smart coffee companion
           </p>
@@ -105,30 +103,6 @@ function LoginForm() {
           <button type="submit">
             Login
           </button>
-
-
-          {/* Demo Login Details */}
-          <div className="login-details">
-
-            <h3>Demo Login Details</h3>
-
-            <div className="detail-row">
-              <span>Email:</span>
-
-              <strong>
-                hassanali@gmail.com
-              </strong>
-            </div>
-
-            <div className="detail-row">
-              <span>Password:</span>
-
-              <strong>
-                hassan01
-              </strong>
-            </div>
-
-          </div>
 
         </form>
 

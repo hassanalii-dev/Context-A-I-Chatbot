@@ -4,7 +4,7 @@ import { UserProvider } from "../context/UserContext";
 import "./Chatbot.css";
 
 const ai = new GoogleGenAI({
-  apiKey: "AQ.Ab8RN6Jtf8GafqKH0nY7hEicPEf8PmlVPz27ixtz3rjvtD16Kg",
+  apiKey: import.meta.env.VITE_GEMINI_API_KEY,
 });
 
 function Chatbot() {
@@ -21,7 +21,7 @@ function Chatbot() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!query.trim()) {
+    if (!query.trim() || loading) {
       return;
     }
 
@@ -29,71 +29,60 @@ function Chatbot() {
     setResponse("");
 
     try {
-      const interaction = await ai.interactions.create({
+      const result = await ai.models.generateContent({
         model: "gemini-3.5-flash",
-
-        input: query,
-
-        system_instruction: `You are a Starbucks AI Assistant.
-
-You help customers with Starbucks-related questions.
+        contents: query.trim(),
+        config: {
+          systemInstruction: `
+You are a Starbucks AI Assistant.
 
 You can only answer questions about these topics:
-
 1. Menu
 2. Coffee
 3. Prices
 4. Orders
 5. Store locations
 
-Keep your answers short, friendly and simple.
-
 Starbucks offers:
-Coffee
-Frappuccino
-Tea
-Refreshers
-Sandwiches
-Bakery items
+Coffee, Frappuccino, Tea, Refreshers, Sandwiches, and Bakery items.
 
-If the user asks about coffee:
-Recommend a suitable Starbucks drink.
+If the user asks about coffee, recommend a suitable Starbucks drink.
+If the user asks about the menu, briefly describe menu items.
+If the user asks about prices, explain that prices vary by location.
+If the user asks about orders, explain how to place or check an order.
+If the user asks about store locations, guide them to the official Starbucks website.
 
-If the user asks about the menu:
-Give a short description of Starbucks menu items.
+If the question is unrelated to Starbucks, reply:
+Sorry, I can only help with Starbucks menu, coffee, prices, orders and store locations.
 
-If the user asks about prices:
-Give general information about Starbucks prices.
-
-If the user asks about orders:
-Give general information about placing or checking an order.
-
-If the user asks about store locations:
-Give general information about Starbucks stores.
-
-If the user asks something unrelated to Starbucks, reply:
-
-"Sorry, I can only help with Starbucks menu, coffee, prices, orders and store locations."
-
-Keep every response short and concise.
-
-Always be polite and helpful.
-
-IMPORTANT RESPONSE FORMAT:
-Do not use asterisks (*).
-Do not use double asterisks (**).
-Do not use hashtags (#).
-Do not use special symbols for formatting.`,
+Keep every response short, friendly, simple, and polite.
+Do not use asterisks or hashtags.
+          `,
+        },
       });
 
-      setResponse(interaction.output_text);
+      setResponse(
+        result.text || "Sorry, no response was received. Please try again."
+      );
     } catch (err) {
-      console.log(err);
+      console.error("Gemini API Error:", err);
 
-      setResponse(err.message || "Something went wrong");
+      if (err.message?.includes("403")) {
+        setResponse(
+          "Access denied. Please check your Google AI Studio project, API key, and model access."
+        );
+      } else if (err.message?.includes("429")) {
+        setResponse(
+          "The API request limit has been reached. Please try again later."
+        );
+      } else {
+        setResponse(
+          err.message || "Something went wrong. Please try again."
+        );
+      }
+    } finally {
+      setLoading(false);
     }
-
-    setLoading(false);
   };
 
   const logout = () => {
@@ -103,13 +92,12 @@ Do not use special symbols for formatting.`,
   return (
     <main className="chatbot-page">
       <section className="card chatbot-card">
-
         <div className="topbar">
           <div className="chatbot-heading">
             <h1>Starbucks AI</h1>
 
             <p className="muted">
-              Welcome, {userInfo?.name}
+              Welcome, {userInfo?.name || "Guest"}
             </p>
           </div>
 
@@ -122,7 +110,7 @@ Do not use special symbols for formatting.`,
           </button>
         </div>
 
-        <div className="response-box">
+        <div className="response-box" aria-live="polite">
           {loading ? (
             <p>Starbucks AI is thinking...</p>
           ) : response ? (
@@ -134,13 +122,8 @@ Do not use special symbols for formatting.`,
           )}
         </div>
 
-        <form
-          className="chatbot-form"
-          onSubmit={handleSubmit}
-        >
-          <label htmlFor="query">
-            Query
-          </label>
+        <form className="chatbot-form" onSubmit={handleSubmit}>
+          <label htmlFor="query">Query</label>
 
           <input
             type="text"
@@ -152,14 +135,10 @@ Do not use special symbols for formatting.`,
             disabled={loading}
           />
 
-          <button
-            type="submit"
-            disabled={loading}
-          >
+          <button type="submit" disabled={loading || !query.trim()}>
             {loading ? "Sending..." : "Send"}
           </button>
         </form>
-
       </section>
     </main>
   );
